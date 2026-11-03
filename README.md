@@ -1,12 +1,19 @@
-# E-Commerce Delivery Delay & Customer Dissatisfaction Risk Analytics
+# Service Recovery Intelligence
 
-Integrated machine learning framework using the **Olist Brazilian E-Commerce Public Dataset** for:
+**Business Intelligence and Analytics decision-support system for fulfillment exceptions and customer experience.**
 
-1. **Delivery delay prediction** (binary classification)
-2. **Customer dissatisfaction prediction** (review score 1–2 vs other)
-3. **Integrated order-level risk engine** and a **Streamlit** demonstration app
+This project develops a commercial-style **Service Recovery Intelligence** workspace using the **Olist Brazilian E-Commerce Public Dataset** as an operational case dataset for:
 
-This repository is developed **phase by phase**. Later phases are not started until the current phase is explicitly approved.
+1. monitoring confirmed fulfillment outcomes;
+2. estimating late-delivery likelihood;
+3. estimating low-review likelihood from pre-review order information;
+4. prioritising intervention through a combined risk policy;
+5. presenting model governance and decision-support views in Streamlit.
+
+The detailed academic and business framing is documented in
+[`BIa/docs/problem_statement.md`](BIa/docs/problem_statement.md).
+
+This repository is developed as a complete, reproducible Business Intelligence and Analytics case study. The current branch contains the prepared data pipeline, trained artifacts, decision-support policy, Streamlit application, tests, and faculty demonstration documentation.
 
 ---
 
@@ -26,7 +33,7 @@ BIa/
 │   └── external/
 ├── notebooks/                 # Phase notebooks (from Phase 1)
 ├── scripts/
-│   └── verify_environment.py  # Phase 0 environment check
+│   └── inspect_dataset.py     # Phase 1 dataset inspection
 ├── src/                       # Reusable Python modules
 │   ├── data/
 │   ├── features/
@@ -164,17 +171,27 @@ Recommended order (after each phase is approved):
 5. `05_dissatisfaction_model.ipynb`
 6. `06_integrated_risk_engine.ipynb`
 
----
-
-## How to run the Streamlit application (Phase 7)
-
-The application is **not** implemented in Phase 0. After Phase 7:
+For the current Phase 1 inspection utility and its focused tests:
 
 ```powershell
-streamlit run app/app.py
+python BIa\scripts\inspect_dataset.py --output BIa\data\interim\dataset_inventory.json
+python -m unittest discover -s BIa\tests -p "test_*.py" -v
 ```
 
-The app must load saved Joblib models from `models/`; it must not retrain at startup.
+The inspection command exits with code `2` while expected source files are
+missing. That is an intentional data-readiness guard, not a model failure.
+
+---
+
+## How to run the Streamlit application
+
+```powershell
+python -m streamlit run BIa\app\app.py
+```
+
+The app loads saved Joblib models from `BIa\models\`; it does not retrain at startup.
+For the recommended five-minute walkthrough, see
+[`BIa/docs/faculty_demo_script.md`](BIa/docs/faculty_demo_script.md).
 
 ---
 
@@ -195,15 +212,15 @@ Full scope, leakage rules and phase gates: [`docs/project_specification.md`](doc
 
 | Phase | Description | Status |
 |-------|-------------|--------|
-| 0 | Project planning and environment setup | Approved |
-| 1 | Dataset inspection and business understanding | **Current** |
-| 2 | Data cleaning and feature engineering | Not started |
-| 3 | Exploratory data analysis | Not started |
-| 4 | Delivery delay prediction model | Not started |
-| 5 | Customer dissatisfaction prediction model | Not started |
-| 6 | Integrated risk engine | Not started |
-| 7 | Interactive Streamlit application | Not started |
-| 8 | Testing, final evaluation and documentation | Not started |
+| 0 | Project planning and environment setup | Complete |
+| 1 | Dataset inspection and business understanding | Complete |
+| 2 | Data cleaning and feature engineering | Complete |
+| 3 | Exploratory analysis and outcome profiling | Complete |
+| 4 | Delivery delay prediction model | Complete; weak test discrimination documented |
+| 5 | Customer dissatisfaction prediction model | Complete |
+| 6 | Integrated risk engine | Complete |
+| 7 | Interactive Streamlit application | Complete |
+| 8 | Testing, final evaluation and documentation | Complete |
 
 ---
 
