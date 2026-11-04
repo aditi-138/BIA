@@ -49,3 +49,19 @@ reports/figures/*
 
 # Streamlit
 .streamlit/secrets.toml
+
+# The repository's project content currently lives under BIa/
+BIa/data/raw/*
+!BIa/data/raw/.gitkeep
+BIa/data/interim/*
+!BIa/data/interim/.gitkeep
+BIa/data/processed/*
+!BIa/data/processed/.gitkeep
+BIa/data/external/*
+!BIa/data/external/.gitkeep
+BIa/PROJECT_STATUS.md
+BIa/models/*
+!BIa/models/.gitkeep
+BIa/reports/figures/*
+!BIa/reports/figures/.gitkeep
+BIa/.streamlit/secrets.toml
